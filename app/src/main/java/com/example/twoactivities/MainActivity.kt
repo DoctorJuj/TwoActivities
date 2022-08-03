@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 const val TEXT_REQUEST = 1
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_MESSAGE: String = "com.example.android.twoactivities.extra.MESSAGE"
+    }
     private var mMessageEditText: EditText? = null
     private var mReplyHeadTextView: TextView? = null
     private var mReplyTextView: TextView? = null
@@ -23,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     fun launchSecondActivity(view: View) {
         val intent = Intent(this, SecondActivity::class.java)
         val message = mMessageEditText!!.text.toString()
-        intent.putExtra("HUI", message);
+        intent.putExtra(EXTRA_MESSAGE, message)
         startActivityForResult(intent, TEXT_REQUEST);
     }
 
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == TEXT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                val reply: String? = data?.getStringExtra("HUI2")
+                val reply: String? = data?.getStringExtra(SecondActivity.EXTRA_REPLY)
                 mReplyHeadTextView?.setVisibility(View.VISIBLE)
                 mReplyTextView?.setText(reply)
                 mReplyTextView?.setVisibility(View.VISIBLE)

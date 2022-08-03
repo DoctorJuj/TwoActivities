@@ -9,13 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class SecondActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_REPLY: String = "com.example.android.twoactivities.extra.REPLY"
+    }
     private var mReply: EditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
         mReply = findViewById(R.id.editText_second)
         val intent = intent
-        val message = intent.getStringExtra("HUI")
+        val message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE)
         val textView :TextView = findViewById(R.id.text_message)
         textView.setText(message)
     }
@@ -23,7 +26,7 @@ class SecondActivity : AppCompatActivity() {
     fun returnReply(view: View) {
         val reply = mReply!!.text.toString()
         val replyIntent = Intent()
-        replyIntent.putExtra("HUI2", reply)
+        replyIntent.putExtra(EXTRA_REPLY, reply)
         setResult(RESULT_OK,replyIntent)
         finish()
     }
